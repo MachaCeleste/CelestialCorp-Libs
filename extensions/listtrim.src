@@ -1,0 +1,9 @@
+//List trim extension for greyscript
+// By MachaCeleste 20240401
+list.trim = function
+    i = 0
+    for each in self
+        if typeof(each) == "string" and each == "" then self.remove(i)
+        i = i + 1
+    end for
+end function

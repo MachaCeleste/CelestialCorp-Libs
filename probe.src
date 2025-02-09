@@ -1,0 +1,27 @@
+//Probe lib functionality for greyscript
+//By MachaCeleste 20240205
+Probe = {}
+    Probe.toRoot = function(f)
+        while parent(f)
+            f=parent(f)
+        end while
+        return f
+    end function
+    Probe.run = function(object)
+        file = null
+        if typeof(object) == "shell" then file = File(host_computer(object), "/")
+        if typeof(object) == "computer" then file = File(object, "/")
+        if typeof(object) == "file" then file = self.toRoot(object)
+        root = file.get_folders.first("path", "/root")
+        if root and root.has_permission("r") and root.has_permission("w") and root.has_permission("x") then return "root"
+        home = file.get_folders.first("path", "/home")
+        if home then
+            users = home.get_folders.wherenot("path", "/home/guest")
+            if users then
+                for each in users
+                    if each.has_permission("r") and each.has_permission("w") and each.has_permission("x") then return "user"
+                end for
+            end if
+        end if
+        return "guest"
+    end function

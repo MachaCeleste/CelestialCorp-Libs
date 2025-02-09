@@ -1,0 +1,18 @@
+//Drop lib functionality for greyscript
+//By MachaCeleste 20240305
+Drop = {}
+    Drop.fMap = null
+    Drop.allFolders = function(folder)
+        self.fMap.push(folder)
+        for f in folder.get_folders
+            self.allFolders(f)
+        end for
+    end function
+    Drop.run = function(folder)
+        self.fMap = []
+        self.allFolders(folder)
+        for f in self.fMap
+            if f.has_permission("w") and f.has_permission("x") then return f
+        end for
+        return "Couldn't find a sutable drop point!"
+    end function

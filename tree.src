@@ -1,0 +1,18 @@
+treelist = []
+getTree = function(root)
+    treelist.push(root)
+    for each in root.get_files
+        treelist.push(each)
+    end for
+    for each in root.get_folders
+        getTree(each)
+    end for
+end function
+tree = function
+    getTree(File(host_computer(get_shell), "/"))
+    for each in treelist
+        print each.path
+    end for
+end function
+
+tree

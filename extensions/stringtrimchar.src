@@ -1,0 +1,9 @@
+//Trim chars functionality for greyscript
+// By MachaCeleste 20240326
+string.trimchar = function(charSet)
+    for c in charSet
+    if self[0].is_match(c) then self = self[1:]
+    if self[-1].is_match(c) then self = self[:-1]
+    end for
+    return self
+end function

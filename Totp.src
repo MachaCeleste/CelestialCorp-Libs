@@ -1,0 +1,33 @@
+//TOTP lib by jessatehcrow and machaceleste
+Totp = {}
+    Totp.year_days = function(year)
+        leap = 366 * floor(year/4+1)
+        norm = 365 * (year-floor(year/4+1))
+        return (leap + norm) * (year>0)
+    end function
+    Totp.getIters = function
+        valid = 5 //time in in game min valid for
+        months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        s = current_date.split("-")
+        sp = s[0].trim.split("/")
+        time = s[1].trim
+        spl = time.split(":")
+        day = sp[0].to_int
+        hour = spl[0].to_int
+        min = spl[1].to_int
+        return floor((((self.year_days(sp[2].to_int - 2000) + sum(month_days[:months.indexOf(sp[1])]) + day - 1) * 24 + hour - 1) * 60 + min)/valid)
+    end function
+    Totp.run = function
+        length = 31 //prime length of pass
+        seed = "" //prime len seed for generation
+        chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345678" //prime len output charset (scramble)
+        md5_hash = md5(seed)
+        result = ""
+        for i in range(0, length-1)
+            md5_index = md5_hash[(i)%md5_hash.len]
+            char_index = (i + self.getIters + code(md5_index) + code(seed[i%seed.len])) % chars.len
+            result = result + chars[char_index]
+        end for
+        return result
+    end function

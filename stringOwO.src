@@ -1,0 +1,34 @@
+//OwOifier lib functionality for greyscript
+//By MachaCeleste 20240305
+string.OwOify = function
+    owoFaces = [ "OwO", "Owo", "owO", "ÓwÓ", "ÕwÕ", "@w@", "ØwØ", "øwø", "uwu", "UwU", "ҩwҩ", "°w°", "0w0", "ѳwѳ", " Ѻw Ѻ", "(owo)" ]
+    owoStrings = [ "OwO <b>what's this</b>", "OwO <b>notices code</b>", "uwu yu so warm~", "owo pounces on you~~" ]
+    owoified = self.replace("r", "w").replace("l", "w").replace("R", "W").replace("L", "W")
+    listify = owoified.values
+    i = 0
+    for each in listify
+        if each == "n" then
+            if round(rnd) == 0 then
+                listify[i] = "ny"
+            else
+                listify[i] = "nya"
+            end if
+        end if
+        if each == "!" then
+            if round(rnd) == 1 then owoified = owoified.replace("!", owoFaces[round(rnd*owoFaces.len)])
+        end if
+        if each == "?" then
+            if round(rnd) == 0 then
+                listify[i] = "?!"
+            else
+                listify[i] = owoFaces[round(rnd*owoFaces.len)]
+            end if
+        end if
+        i = i + 1
+    end for
+    owoified = listify.join("")
+    if round(rnd*30) == 7 then owoified = owoified + owoStrings[round(rnd*owoStrings.len)]
+    return owoified
+end function
+
+//Usage: print("I dont know what youre talking about... This is how I always talk!".OwOify)

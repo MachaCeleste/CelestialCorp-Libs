@@ -1,0 +1,6 @@
+//is valid filename implementation for greyscript
+// by machaceleste 20241204
+string.isValidName = function
+    if self.is_match("[^a-zA-Z0-9_.-]") then return false
+    return true
+end function

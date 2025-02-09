@@ -1,0 +1,59 @@
+//Map.conf handler for greyscript
+// By MachaCeleste 20240519
+string.color = function(c)
+    return "<color="+c+">"+self+"</color>"
+end function
+Account = {}
+    Account.user = ""
+    Account.ip = ""
+    Account.password = ""
+
+MapHandler = {}
+    MapHandler.data = {"accounts":[], "historyConnections":[]}
+    MapHandler.mapFile = null
+    MapHandler.init = function
+        hc = get_shell.host_computer
+        path = "/root/Config"
+        if active_user != "root" then path = "/home/" + active_user + "/Config"
+        self.mapFile = hc.File(path + "/Map.conf")
+        if not self.mapFile then
+            hc.touch(path, "Map.conf")
+            self.mapFile = hc.File(path + "/Map.conf")
+        end if
+        if not self.mapFile then exit("File not found!".color("red"))
+        if self.mapFile.get_content == "" then
+            self.mapFile.set_content("{""accounts"":[],""historyConnections"":[]}")
+            return print("Map.conf - No data!".color("red"))
+        end if
+        for match in self.mapFile.get_content.matches("{""user"":""[a-zA-Z0-9]*"",""ip"":""[0-9.]*"",""password"":""[a-zA-Z0-9]*""}")
+            dList = match.value.split(",")
+            a = new Account
+            a.user = dList[0].split(":")[1][1:-1]
+            a.ip = dList[1].split(":")[1][1:-1]
+            a.password = dList[2].split(":")[1][1:-1]
+            self.data["accounts"].push(a)
+        end for
+    end function
+    MapHandler.save = function
+        self.mapFile.set_content(self.data)
+    end function
+    MapHandler.deduplicate = function
+        out = self.data["accounts"]
+        for account in self.data["accounts"]
+            i = 0
+            for compare in out
+                if account.ip == compare.ip and account.user == compare.user then  out.remove(i)
+                i = i + 1
+            end for
+        end for
+        self.data["accounts"] = out
+    end function
+
+//SETUP
+//mh = new MapHandler - instantiate handler
+//mh.init - load/generate Map.conf
+
+//FUNCTIONS
+//mh.save - save Map.conf
+//mh.deduplicate - deduplication function
+//mh.data.accounts[i] - access the account info for an entry stores user, ip and password keys

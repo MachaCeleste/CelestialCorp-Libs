@@ -1,0 +1,14 @@
+//int to hex implementation for greyscript
+// by machaceleste 20241204
+number.to_hex = function
+    n = self// MaxInt 2147483647/7FFFFFFF
+    if n == 0 then return "0"
+    chars = "0123456789ABCDEF"
+    res = ""
+    while n > 0
+        r = n % 16
+        res = chars[r] + res
+        n = floor(n / 16)
+    end while
+    return res
+end function

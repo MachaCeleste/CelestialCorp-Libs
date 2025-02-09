@@ -1,0 +1,9 @@
+//RegEx escape extension for greyscript
+// By Jessa
+string.regex_escape = function
+    result = self
+    for x in "+*?^$.[]{}()|/"
+        result = result.replace("\"+x, "\"+x)
+    end for
+    return result
+end function

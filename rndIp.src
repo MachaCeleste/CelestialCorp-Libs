@@ -1,0 +1,15 @@
+rndIp = {}
+rndIp.rndOct = function
+    r = 256
+    while not r <= 255
+        r = round(rnd*1000)
+    end while
+    return r
+end function
+rndIp.run = function
+    ip = ""
+        while not is_valid_ip(ip) or is_lan_ip(ip)
+            ip = self.rndOct + "." + self.rndOct + "." + self.rndOct + "." + self.rndOct
+        end while
+    return ip
+end function
