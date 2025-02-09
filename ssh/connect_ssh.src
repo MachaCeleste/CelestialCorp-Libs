@@ -1,0 +1,69 @@
+Totp = {}
+    Totp.year_days = function(year)
+        leap = 366 * floor(year/4+1)
+        norm = 365 * (year-floor(year/4+1))
+        return (leap + norm) * (year>0)
+    end function
+    Totp.getIters = function
+        valid = 1 //time in min valid for
+        months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        month_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        s = current_date.split("-")
+        sp = s[0].trim.split("/")
+        time = s[1].trim
+        spl = time.split(":")
+        day = sp[0].to_int
+        hour = spl[0].to_int
+        min = spl[1].to_int
+        return floor((((self.year_days(sp[2].to_int - 2000) + sum(month_days[:months.indexOf(sp[1])]) + day - 1) * 24 + hour - 1) * 60 + min)/valid)
+    end function
+    Totp.run = function
+        length = 131 //length of pass
+        seed = "" //seed for generation
+        md5_hash = ""//prehashed seed
+        chars = "" //output charset
+        result = ""
+        for i in range(0, length-1)
+            md5_index = md5_hash[(i)%md5_hash.len]
+            char_index = (i + self.getIters + code(md5_index) + code(seed[i%seed.len])) % chars.len
+            result = result + chars[char_index]
+        end for
+        return result
+    end function
+Connect_ssh = {}
+    Connect_ssh.run = function
+    hs = get_shell
+    hc = hs.host_computer
+    hc.File(program_path).delete
+    mx = include_lib(current_path + "/metaxploit.so")
+    if not mx then exit
+    rsf = File(hc, current_path + "/librshell.so")
+    rsf.copy("/lib/", "librshell.so")
+    rsd = include_lib("/lib/librshell.so")
+    if not rsd then exit
+    out = rsd.install_service
+    if typeof(out) == "string" then exit(out)
+    cred = params[0].split("@")
+    port = 22
+    if params.hasIndex(1) and typeof(params[1].to_int) == "number" then port = params[1].to_int
+    enc = Totp.run
+    out = hs.connect_service(cred[1], port, cred[0], enc)
+    if typeof(out) == "string" then exit(out)
+    shells = mx.rshell_server
+    out = rsd.stop_service
+    if typeof(out) == "string" then exit
+    File(hc, "/server").delete
+    File(hc, "/lib/librshell.so").delete
+    if typeof(shells) == "string" or shells.len == 0 then exit(shells)
+    ts = shells.pull
+    tc = ts.host_computer
+    for proc in tc.show_procs.split(char(10))
+        if not proc.is_match("ssh_client") then continue
+        p = proc.split(" ")
+        tc.close_program(p[1].to_int)
+    end for
+    ts.start_terminal
+    end function
+if params.len < 1 then exit("<b>Usage: ssh [user@ip address] [(opt) port]</b>")
+cs = new Connect_ssh
+cs.run
