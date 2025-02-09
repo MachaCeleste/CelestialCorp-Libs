@@ -1,0 +1,52 @@
+//Menu system for greyscript
+// By MachaCeleste 20240215
+Menu = {}
+    Menu.init = function(commandsMap, _prompt=": ")
+        if not commandsMap then 
+            commandsMap = {}
+                commandsMap.test = {}
+                    commandsMap.test.use = "Usage: test"
+                    commandsMap.test.desc = "this is a test function"
+                    commandsMap.test.minPar = 0
+                    commandsMap.test.run = function(x)
+                        print("tested!")
+                    end function
+                commandsMap.exit = {}
+                    commandsMap.exit.use = "Usage: exit"
+                    commandsMap.exit.desc = ""
+                    commandsMap.exit.minPar = 0
+                    commandsMap.exit.run = function(x)
+                        exit("Exiting...")
+                    end function
+        end if
+        x = new self
+            x.cmd = commandsMap
+            x._prompt = _prompt
+        return x
+    end function
+    Menu.help = function
+        for each in self.cmd.indexes
+            if self.cmd[each].hasIndex("run") and self.cmd[each].hasIndex("desc") then print(self.cmd[each].use + char(10) + self.cmd[each].desc)
+        end for
+    end function
+    Menu.run = function
+        while true
+            userChoice = user_input(self._prompt)
+            if userChoice == "" then continue
+            if userChoice == "help" then 
+                self.help
+                continue
+            end if
+            userChoice = userChoice.split(" ")
+            if self.cmd.hasIndex(userChoice[0].lower) then
+                if not self.cmd[userChoice[0].lower].minPar > userChoice[1:].len then
+                    print(self.cmd[userChoice[0].lower].desc)
+                    continue
+                end if
+                f=@self.cmd[userChoice[0].lower].run
+                if userChoice.len > 1 then f(userChoice[1:]) else f
+            else
+                print("Invalid command!")
+            end if    
+        end while
+    end function
