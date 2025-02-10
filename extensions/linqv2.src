@@ -15,6 +15,11 @@ Linq = function(e,k,v)
             return false
         end if
     end if
+    if e isa string then
+        if k=="is" and e==v then return true
+        if k=="contains" and e.is_match(v) then return true
+        return false
+    end if
     if not e.values[0].hasIndex(k) then return print("Index " + k + " not found in map!")
     f = @e[k]
     if f(e)==v then return true
@@ -22,16 +27,14 @@ Linq = function(e,k,v)
     end function
 list.first = function(k,v)
     for e in self
-        o=Linq(e,k,v)
-        if o then return e
+        if Linq(e,k,v) then return e
     end for
     return null
     end function
 list.where = function(k,v)
     r = []
     for e in self
-        o=Linq(e,k,v)
-        if o then r.push(e)
+        if Linq(e,k,v) then r.push(e)
     end for
     if r.len>0 then return r
     return null
@@ -39,8 +42,7 @@ list.where = function(k,v)
 list.wherenot = function(k,v)
     r = []
     for e in self
-        o=Linq(e,k,v)
-        if not o then r.push(e)
+        if not Linq(e,k,v) then r.push(e)
     end for
     if r.len>0 then return r
     end function
