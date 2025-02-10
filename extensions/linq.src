@@ -1,4 +1,4 @@
-//LinQ lib functionality for greyscript
+//LinQ v1 lib functionality for greyscript
 //By MachaCeleste 20240205
 list.first = function(key, value)
     for each in self

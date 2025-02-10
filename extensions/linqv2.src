@@ -1,0 +1,46 @@
+//LinQ v2 lib functionality for greyscript
+//By MachaCeleste 20250210
+Linq = function(e,k,v)
+    if typeof(e)=="file" then
+        if k=="namehas" then
+            if e.name.is_match(v) then return true
+        end if
+        if k=="has_permission" then
+            s=v.values
+            c=""
+            for p in s
+                if e.has_permission(p) then c=c+p
+            end for
+            if c==v then return true
+            return false
+        end if
+    end if
+    if not e.values[0].hasIndex(k) then return print("Index " + k + " not found in map!")
+    f = @e[k]
+    if f(e)==v then return true
+    return false
+    end function
+list.first = function(k,v)
+    for e in self
+        o=Linq(e,k,v)
+        if o then return e
+    end for
+    return null
+    end function
+list.where = function(k,v)
+    r = []
+    for e in self
+        o=Linq(e,k,v)
+        if o then r.push(e)
+    end for
+    if r.len>0 then return r
+    return null
+    end function
+list.wherenot = function(k,v)
+    r = []
+    for e in self
+        o=Linq(e,k,v)
+        if not o then r.push(e)
+    end for
+    if r.len>0 then return r
+    end function
