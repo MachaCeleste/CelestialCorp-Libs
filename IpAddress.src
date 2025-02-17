@@ -1,7 +1,7 @@
 //IpAddress object for greyscript
 // by machaceleste 20250216
 IpAddress = {}
-    IpAddress.init = function(x)
+    IpAddress.New = function(x)
         if is_valid_ip(x) then return "Invalid IP"
         p = x.split("\.")
         o = new self
@@ -9,23 +9,25 @@ IpAddress = {}
         o.net = p[1].to_int
         o.sub = p[2].to_int
         o.host = p[3].to_int
+        o.to_string = function
+            return self.class + "." + self.net + "." + self.sub + "." + self.host
+            end function
+        o.is_reserved_ip = function
+            if self.class == 0 then return true
+            if self.class == 10 then return true
+            if self.class == 100 and self.net >= 64 and self.net <= 127 then return true
+            if self.class == 127 then return true
+            if self.class == 169 and self.net == 254 then return true
+            if self.class == 198 and self.net >= 16 and self.net <= 31 then return true
+            if self.class == 192 and self.net == 0 and self.sub == 0 then return true
+            if self.class == 192 and self.net == 0 and self.sub == 2 then return true
+            if self.class == 198 and self.net == 88 and self.sub == 99 then return true
+            if self.class == 192 and self.net == 168 then return true // Lan ip
+            if self.class == 198 and self.net >= 18 and self.net <= 19 then return true
+            if self.class == 198 and self.net == 51 and self.sub == 100 then return true
+            if self.class == 203 and self.net == 0 and self.sub == 113 then return true
+            if self.class >= 224 then return true
+            return false
+            end function
         return o;
-        end function
-    IpAddress.is_reserved_ip = function
-        if not self.hasIndex("class") then return "Not initialized"
-        if self.class == 0 then return true
-        if self.class == 10 then return true
-        if self.class == 100 and self.net >= 64 and self.net <= 127 then return true
-        if self.class == 127 then return true
-        if self.class == 169 and self.net == 254 then return true
-        if self.class == 198 and self.net >= 16 and self.net <= 31 then return true
-        if self.class == 192 and self.net == 0 and self.sub == 0 then return true
-        if self.class == 192 and self.net == 0 and self.sub == 2 then return true
-        if self.class == 198 and self.net == 88 and self.sub == 99 then return true
-        if self.class == 192 and self.net == 168 then return true // Lan ip
-        if self.class == 198 and self.net >= 18 and self.net <= 19 then return true
-        if self.class == 198 and self.net == 51 and self.sub == 100 then return true
-        if self.class == 203 and self.net == 0 and self.sub == 113 then return true
-        if self.class > 224 then return true
-        return false
         end function
