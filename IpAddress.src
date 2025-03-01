@@ -1,10 +1,12 @@
 //IpAddress object for greyscript
 // by machaceleste 20250216
-IpAddress = {}
-    IpAddress.New = function(x)
-        if is_valid_ip(x) then return "Invalid IP"
+IpAddress = {"New":function(x)}
+        if not is_valid_ip(x) then return "Invalid IP"
         p = x.split("\.")
         o = new self
+        o.__isa = {} + o.__isa
+        o.__isa.remove("New")
+        o.classID = "ipAddress"
         o.class = p[0].to_int
         o.net = p[1].to_int
         o.sub = p[2].to_int
