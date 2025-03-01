@@ -29,5 +29,5 @@ IpAddress = function(x)
             if self.class >= 224 then return true
             return false
             end function
-        return o;
+        return o
         end function
