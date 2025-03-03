@@ -18,7 +18,7 @@ IpAddress = function(x)
             if self.class == 100 and self.net >= 64 and self.net <= 127 then return true
             if self.class == 127 then return true
             if self.class == 169 and self.net == 254 then return true
-            if self.class == 198 and self.net >= 16 and self.net <= 31 then return true
+            if self.class == 172 and self.net >= 16 and self.net <= 31 then return true
             if self.class == 192 and self.net == 0 and self.sub == 0 then return true
             if self.class == 192 and self.net == 0 and self.sub == 2 then return true
             if self.class == 198 and self.net == 88 and self.sub == 99 then return true
