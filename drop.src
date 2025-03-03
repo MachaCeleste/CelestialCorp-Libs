@@ -7,7 +7,7 @@ Drop = {}
         for f in folder.get_folders
             self.allFolders(f)
         end for
-    end function
+        end function
     Drop.run = function(folder)
         self.fMap = []
         self.allFolders(folder)
@@ -15,4 +15,4 @@ Drop = {}
             if f.has_permission("w") and f.has_permission("x") then return f
         end for
         return "Couldn't find a sutable drop point!"
-    end function
+        end function

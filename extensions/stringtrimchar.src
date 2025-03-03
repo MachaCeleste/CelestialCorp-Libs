@@ -6,4 +6,4 @@ string.trimchar = function(charSet)
     if self[-1].is_match(c) then self = self[:-1]
     end for
     return self
-end function
+    end function

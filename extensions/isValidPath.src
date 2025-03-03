@@ -3,4 +3,4 @@
 string.isValidPath = function
     if self.is_match("[^a-zA-Z0-9-_/.]") then return false
     return true
-end function
+    end function

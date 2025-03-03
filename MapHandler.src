@@ -2,7 +2,7 @@
 // By MachaCeleste 20240519
 string.color = function(c)
     return "<color="+c+">"+self+"</color>"
-end function
+    end function
 Account = {}
     Account.user = ""
     Account.ip = ""
@@ -33,10 +33,10 @@ MapHandler = {}
             a.password = dList[2].split(":")[1][1:-1]
             self.data["accounts"].push(a)
         end for
-    end function
+        end function
     MapHandler.save = function
         self.mapFile.set_content(self.data)
-    end function
+        end function
     MapHandler.deduplicate = function
         out = self.data["accounts"]
         for account in self.data["accounts"]
@@ -47,7 +47,7 @@ MapHandler = {}
             end for
         end for
         self.data["accounts"] = out
-    end function
+        end function
 
 //SETUP
 //mh = new MapHandler - instantiate handler

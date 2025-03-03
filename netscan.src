@@ -5,7 +5,7 @@ netscan = {}
         if r and not s then return "router"
         if r and s then return "switch"
         return "device"
-    end function
+        end function
     netscan.devLst = []
     netscan.devRtr = []
     netscan.devSwt = []
@@ -17,7 +17,7 @@ netscan = {}
             ret.push(each)
         end for
         return ret
-    end function
+        end function
     netscan.getDevicesOf = function(lr)    // lr - ROUTER object
         devip = lr.local_ip
         if not self.devLst.indexOf(devip) then self.devLst.push(devip)
@@ -41,7 +41,7 @@ netscan = {}
                 end if
             end if
         end for
-    end function
+        end function
 
 netscan.getDevicesOf(get_router)
 print("Routers: " + netscan.devRtr)

@@ -7,12 +7,12 @@ getTree = function(root)
     for each in root.get_folders
         getTree(each)
     end for
-end function
+    end function
 tree = function
     getTree(File(host_computer(get_shell), "/"))
     for each in treelist
         print each.path
     end for
-end function
+    end function
 
 tree

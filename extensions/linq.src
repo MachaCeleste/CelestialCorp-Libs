@@ -28,7 +28,7 @@ list.first = function(key, value)
         end if
     end for
     return null
-end function
+    end function
 list.where = function(key, value)
     ret = []
     for each in self
@@ -59,7 +59,7 @@ list.where = function(key, value)
     end for
     if ret.len > 0 then return ret
     return null
-end function
+    end function
 list.wherenot = function(key, value)
     ret = []
     for each in self
@@ -90,4 +90,4 @@ list.wherenot = function(key, value)
     end for
     if ret.len > 0 then return ret
     return null
-end function
+    end function

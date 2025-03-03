@@ -1,4 +1,4 @@
 Encode = function(password)
 	launch(get_shell, "/server/totpdec", password)
 	print("XD you thought! Nerd :P")
-end function
+	end function

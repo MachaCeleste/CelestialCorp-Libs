@@ -29,6 +29,6 @@ string.OwOify = function
     owoified = listify.join("")
     if round(rnd*30) == 7 then owoified = owoified + owoStrings[round(rnd*owoStrings.len)]
     return owoified
-end function
+    end function
 
 //Usage: print("I dont know what youre talking about... This is how I always talk!".OwOify)

@@ -3,4 +3,4 @@
 string.isAlphaNum = function
     if self.is_match("[^a-zA-Z0-9]") then return false
     return true
-end function
+    end function

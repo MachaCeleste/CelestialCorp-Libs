@@ -23,12 +23,12 @@ Menu = {}
             x.cmd = commandsMap
             x._prompt = _prompt
         return x
-    end function
+        end function
     Menu.help = function
         for each in self.cmd.indexes
             if self.cmd[each].hasIndex("run") and self.cmd[each].hasIndex("desc") then print(self.cmd[each].use + char(10) + self.cmd[each].desc)
         end for
-    end function
+        end function
     Menu.run = function
         while true
             userChoice = user_input(self._prompt)
@@ -49,4 +49,4 @@ Menu = {}
                 print("Invalid command!")
             end if    
         end while
-    end function
+        end function

@@ -4,7 +4,7 @@ Totp = {}
         leap = 366 * floor(year/4+1)
         norm = 365 * (year-floor(year/4+1))
         return (leap + norm) * (year>0)
-    end function
+        end function
     Totp.getIters = function
         valid = 5 //time in in game min valid for
         months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
@@ -17,7 +17,7 @@ Totp = {}
         hour = spl[0].to_int
         min = spl[1].to_int
         return floor((((self.year_days(sp[2].to_int - 2000) + sum(month_days[:months.indexOf(sp[1])]) + day - 1) * 24 + hour - 1) * 60 + min)/valid)
-    end function
+        end function
     Totp.run = function
         length = 31 //prime length of pass
         seed = "" //prime len seed for generation
@@ -30,4 +30,4 @@ Totp = {}
             result = result + chars[char_index]
         end for
         return result
-    end function
+        end function

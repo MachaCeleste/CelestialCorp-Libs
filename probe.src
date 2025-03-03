@@ -6,7 +6,7 @@ Probe = {}
             f=parent(f)
         end while
         return f
-    end function
+        end function
     Probe.run = function(object)
         file = null
         if typeof(object) == "shell" then file = File(host_computer(object), "/")
@@ -24,4 +24,4 @@ Probe = {}
             end if
         end if
         return "guest"
-    end function
+        end function

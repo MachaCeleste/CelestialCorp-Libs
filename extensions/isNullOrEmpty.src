@@ -4,4 +4,4 @@ isNullOrEmpty = function(x)
     if typeof(x) == "string" and (x == null or x == "") then return true
     if (typeof(x) == "map" or typeof(x) == "list") and (x == null or x.len == 0) then return true
     return false
-end function
+    end function

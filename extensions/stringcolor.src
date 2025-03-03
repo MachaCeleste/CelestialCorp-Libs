@@ -2,4 +2,4 @@
 // By MachaCeleste 20240305
 string.color = function(hexc)
     return "<color=" + hexc + ">" + self + "</color>"
-end function
+    end function

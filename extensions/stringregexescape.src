@@ -6,4 +6,4 @@ string.regex_escape = function
         result = result.replace("\"+x, "\"+x)
     end for
     return result
-end function
+    end function

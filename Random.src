@@ -35,7 +35,7 @@ Random = {}
         self._inext = 0
         self._inextp = 21
         seed = 1
-    end function
+        end function
     Random.Next = function(max, min = null)
         if not min then
             if max < 0 then exit("Error: Max must be greater than zero.")
@@ -45,10 +45,10 @@ Random = {}
         num = max - min
         if num <= 2147483647 then return self.sample * num + min
         return self.getlongsample * num + min
-    end function
+        end function
     Random.sample = function
         return self.intsample * 4.656612875245797E-10
-    end function
+        end function
     Random.intsample = function
         num = self._inext
         num2 = self._inextp
@@ -63,9 +63,9 @@ Random = {}
         self.inext = num
         self.inextp = num2
         return num3
-    end function
+        end function
     Random.getlongsample = function
         num = self.intsample
         if self.intsample % 2 == 0 then num = -num
         return (num + 2147483646.0) / 4294967293.0
-    end function
+        end function
