@@ -4,6 +4,7 @@ Linq = function(e,k,v)
     if typeof(e)=="file" then
         if k=="namehas" then
             if e.name.is_match(v) then return true
+            return false
         end if
         if k=="has_permission" then
             s=v.values
@@ -16,9 +17,14 @@ Linq = function(e,k,v)
         end if
     end if
     if e isa string then
-        if k=="is" and e==v then return true
-        if k=="contains" and e.is_match(v) then return true
-        return false
+        if k=="is" then 
+            if e==v then return true
+            return false
+        end if
+        if k=="contains" then
+            if e.is_match(v) then return true
+            return false
+        end if
     end if
     if not e.values[0].hasIndex(k) then return print("Index " + k + " not found in map!")
     f = @e[k]
