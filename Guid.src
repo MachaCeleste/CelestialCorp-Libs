@@ -1,0 +1,23 @@
+//Guid implementation for greyscript
+// by machaceleste 20250331
+Guid = function(seed = null)
+    getRandomHex = function(r)
+        hexChars = "0123456789abcdef"
+        return hexChars[r.Next(hexChars.len)]
+        end function
+    random = new Random
+    random.init(seed)
+    guidFormat = [8,4,4,4,12]
+    output = ""
+    i = 0
+    for place in guidFormat
+        if i > 0 then output = output + "-"
+        n = 0
+        while n < place
+            output = output + getRandomHex(random)
+            n = n + 1
+        end while
+        i = i + 1
+    end for
+    return output
+    end function
