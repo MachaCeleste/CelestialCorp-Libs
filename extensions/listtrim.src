@@ -6,4 +6,5 @@ list.trim = function
         if typeof(each) == "string" and each == "" then self.remove(i)
         i = i + 1
     end for
+    return self
     end function
