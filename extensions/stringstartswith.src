@@ -1,0 +1,6 @@
+//string.StartsWith implementation for greyscript
+// by machaceleste 20250408
+string.StartsWith = function(match)
+    if self[:match.len] == match then return true
+    return false
+    end function

@@ -1,0 +1,6 @@
+//string.EndsWith implementation for greyscript
+// by machaceleste 20250408
+string.EndsWith = function(match)
+    if self[-match.len:] == match then return true
+    return false
+    end function
