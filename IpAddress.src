@@ -13,7 +13,7 @@ IpAddress = function(x)
             return self.class + "." + self.net + "." + self.sub + "." + self.host
             end function
         o.ip_to_int = function
-            return bitwise("|", bitwise("|", bitwise("<<", a, 24), bitwise("<<", b, 16)), bitwise("|", bitwise("<<", c, 8), d))
+            return bitwise("|", bitwise("|", bitwise("<<", self.class, 24), bitwise("<<", self.net, 16)), bitwise("|", bitwise("<<", self.sub, 8), self.host))
             end function
         o.is_reserved_ip = function
             if self.class == 0 then return true
