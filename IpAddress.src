@@ -12,6 +12,9 @@ IpAddress = function(x)
         o.to_string = function
             return self.class + "." + self.net + "." + self.sub + "." + self.host
             end function
+        o.ip_to_int = function
+            return bitwise("|", bitwise("|", bitwise("<<", a, 24), bitwise("<<", b, 16)), bitwise("|", bitwise("<<", c, 8), d))
+            end function
         o.is_reserved_ip = function
             if self.class == 0 then return true
             if self.class == 10 then return true
