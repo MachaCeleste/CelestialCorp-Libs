@@ -1,6 +1,6 @@
 //Random ported from .net4 to greyscript
 // By MachaCeleste 20240323
-// Contributors Tanshy
+// Contributors Tanshy, IDelta
 Random = {}
     Random.MaxValue = 2147483647
     Random.MinValue = -2147483648
@@ -17,22 +17,30 @@ Random = {}
         num3 = 161803398 - num2
         self._seedArray[55] = num3
         num4 = 1
-        for i in range(1, 54)
+        i = 1
+        while i < 55
             num = num + 21
             if num >= 55 then num = num - 55
             self._seedArray[num] = num4
             num4 = num3 - num4
             if num4 < 0 then num4 = num4 + self.MaxValue
             num3 = self._seedArray[num]
-        end for
-        for j in range(1, 4)
-            for k in range(1, 55)
+            i = i + 1
+        end while
+        j = 1
+        while j < 5
+            k = 1
+            while k < 56
                 num5 = k + 30
                 if num5 >= 55 then num5 = num5 - 55
                 self._seedArray[k] = self._seedArray[k] - self._seedArray[1 + num5]
+                if self._seedArray[k] < self.MinValue then self._seedArray[k] = self._seedArray[k] - 2 * self.MinValue
+                if self._seedArray[k] > self.MaxValue then self._seedArray[k] = self._seedArray[k] - 2 * self.MaxValue - 2
                 if self._seedArray[k] < 0 then self._seedArray[k] = self._seedArray[k] + self.MaxValue
-            end for
-        end for
+                k = k + 1
+            end while
+            j = j + 1
+        end while
         self._inext = 0
         self._inextp = 21
         seed = 1
@@ -44,7 +52,7 @@ Random = {}
         end if
         if min > max then exit("Error: Min cannot be greater than Max.")
         num = max - min
-        if num <= 2147483647 then return self.sample * num + min
+        if num <= self.MaxValue then return self.sample * num + min
         return self.getlongsample * num + min
         end function
     Random.sample = function
@@ -58,7 +66,7 @@ Random = {}
         num2 = num2 + 1
         if num2 >= 56 then num2 = 1
         num3 = self._seedArray[num] - self._seedArray[num2]
-        if num3 == 2147483647 then num3 = num3 - 1
+        if num3 == self.MaxValue then num3 = num3 - 1
         if num3 < 0 then num3 = num3 + self.MaxValue
         self._seedArray[num] = num3
         self._inext = num
@@ -68,5 +76,7 @@ Random = {}
     Random.getlongsample = function
         num = self.intsample
         if self.intsample % 2 == 0 then num = -num
-        return (num + 2147483646.0) / 4294967293.0
+        num2 = num
+        num2 = num2 + 2147483646.0
+        return num2 / 4294967293.0
         end function
